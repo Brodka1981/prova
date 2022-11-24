@@ -1,0 +1,69 @@
+  <div>
+    <button (click)="onInsertPersona()" mat-raised-button color="primary">Inserisci</button>
+  </div>
+  <br/>
+
+  <div>
+  <div style="width:50%" class="mat-elevation-z8">
+    <table style="width:100%" matSort mat-table [dataSource]="dataSource">
+      <!-- Nome Column -->
+      <ng-container matColumnDef="nome">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nome</th>
+        <td mat-cell *matCellDef="let element"><a routerLink="/sidebarcontatti/{{element.id}}">{{element.nome}}</a></td>
+      </ng-container>
+
+      <ng-container matColumnDef="nome-filter">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-form-field floatLabel="never">
+            <mat-label>Cerca</mat-label>
+            <input matInput [formControl]="nomeFilter">
+          </mat-form-field>
+        </th>
+     </ng-container>
+
+      <!-- Email Column -->
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Cognome</th>
+        <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="email-filter">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-form-field floatLabel="never">
+            <mat-label>Cerca</mat-label>
+            <input matInput [formControl]="emailFilter">
+          </mat-form-field>
+        </th>
+     </ng-container>
+
+      <!-- Rovescio Column -->
+      <ng-container matColumnDef="rovescio">
+        <th mat-header-cell *matHeaderCellDef> Rovescio </th>
+        <td mat-cell *matCellDef="let element"> {{element.rovescio}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="deleteAction">
+        <th mat-header-cell *matHeaderCellDef> Elimina </th>
+          <td mat-cell *matCellDef="let element">
+            <i class="material-icons" (click)="onDeletePersona(element.id)">delete</i>
+          </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-header-row *matHeaderRowDef="displayedColumnFilters"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator style="width:100%" #paginator [pageSizeOptions]="[3, 6, 10]" showFirstLastButtons></mat-paginator>
+
+  </div>
+  <p>Lista Contatti Sidebar</p>
+  <table>
+    <tr *ngFor="let p of persone;index as i">
+      <td><a style="padding:20px;" routerLink="/sidebarcontatti/{{p.id}}">{{p.nome}} {{p.cognome}}</a></td><td><button (click)="onDeletePersona(p.id)" mat-raised-button color="primary">Elimina</button></td>
+    </tr>
+  </table>
+  </div>
+  <div>
+    <router-outlet></router-outlet>
+  </div>

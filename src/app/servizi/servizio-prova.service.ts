@@ -6,6 +6,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class ServizioProvaService {
+  private controllerHost = 'https://localhost:44320/';
   private data = new BehaviorSubject('default');
   data$ = this.data.asObservable();
   private apiUrlNoExt = 'https://corso-angular-2b577-default-rtdb.europe-west1.firebasedatabase.app/persone';
@@ -91,23 +92,23 @@ export class ServizioProvaService {
   }
 
   getTransactionsList(){
-    return this.http.post('https://localhost:44320/PecConsumer/Search',{Channel: "PecConsumer"});
+    return this.http.post(this.controllerHost + 'PecConsumer/Search',{Channel: "PecConsumer"});
   }
 
   getTransactionsDetail(id: string){
-    return this.http.post('https://localhost:44320/PecConsumer/Detail',{transactionId: id});
+    return this.http.post(this.controllerHost + 'PecConsumer/Detail',{transactionId: id});
   }
 
   takeTransaction(id: string, force: any){
-    return this.http.post('https://localhost:44320/PecConsumer/Take',{transactionId: id, force: force});
+    return this.http.post(this.controllerHost + 'PecConsumer/Take',{transactionId: id, force: force});
   }
 
   getMotiviKo(){
-    return this.http.post('https://localhost:44320/PecConsumer/ListMotiviKO',{Channel: "PecConsumer"});
+    return this.http.post(this.controllerHost + 'PecConsumer/ListMotiviKO',{Channel: "PecConsumer"});
   }
 
   getOperatorProfile(){
-    return this.http.post('https://localhost:44320/PecConsumer/OperatorProfile',{Channel: "PecConsumer"});
+    return this.http.post(this.controllerHost + 'PecConsumer/OperatorProfile',{Channel: "PecConsumer"});
   }
 
   renderDate(date: any) {

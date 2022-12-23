@@ -1,6 +1,9 @@
-<h2 mat-dialog-title>Conferma</h2>
-<div mat-dialog-content>{{confirmMessage}}</div>
-<div mat-dialog-actions>
+<h2 mat-dialog-title>{{titolo}}</h2>
+<div mat-dialog-content [innerHTML]="confirmMessage"></div>
+<div *ngIf="tipo=='conferma'" mat-dialog-actions>
   <button mat-button mat-dialog-close (click)="dialogRef.close(true)">Conferma</button>
   <button mat-button mat-dialog-close cdkFocusInitial (click)="dialogRef.close(false)">Annulla</button>
+</div>
+<div *ngIf="tipo=='errore'" mat-dialog-actions>
+  <button mat-button mat-dialog-close cdkFocusInitial (click)="dialogRef.close(false)">Chiudi</button>
 </div>

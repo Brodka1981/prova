@@ -15,5 +15,11 @@
       <mat-option value="duemani">Due mani</mat-option>
     </mat-select>
   </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Nazione</mat-label>
+    <mat-select name="nazione" formControlName="nazione">
+      <mat-option *ngFor="let country of listaNazioni" [value]="country">{{country}}</mat-option>
+    </mat-select>
+  </mat-form-field>
   <button mat-raised-button color="primary" type="submit" [disabled]="!homeForm.valid">Invia</button>
 </form>

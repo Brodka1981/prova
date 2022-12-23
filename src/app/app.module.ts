@@ -22,6 +22,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
+import { DettaglioComponent } from './componenti/dettaglio/dettaglio.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import {MatSortModule} from '@angular/material/sort';
     ContattoComponent,
     ContattiComponent,
     ConfirmationDialog,
-    IndexComponent
+    IndexComponent,
+    DettaglioComponent
   ],
   imports: [
     BrowserModule,

@@ -9,19 +9,23 @@ import {MatDialog, MatDialogRef} from '@angular/material/dialog';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  listaNazioni: string[] | undefined;
   homeForm = new FormGroup({
       nome: new FormControl(),
       email: new FormControl(),
-      rovescio: new FormControl()
+      rovescio: new FormControl(),
+      nazione: new FormControl()
   })
 
   constructor(private service : ServizioProvaService, public dialogRef: MatDialogRef<HomeComponent>) { }
 
   ngOnInit(): void {
+    this.listaNazioni = this.service.getNazioni();
     this.homeForm= new FormGroup({
         nome : new FormControl('Luca', Validators.required),
         email: new FormControl(null,[Validators.required, Validators.email]),
-        rovescio: new FormControl('duemani')
+        rovescio: new FormControl('duemani'),
+        nazione: new FormControl(null, Validators.required)
     })
 
 
@@ -29,9 +33,8 @@ export class HomeComponent implements OnInit {
 
   onSubmit(){
     this.service.insertPersona(
-      { nome: this.homeForm.value.nome, email:this.homeForm.value.email, rovescio:this.homeForm.value.rovescio}).subscribe(data =>
+      { nome: this.homeForm.value.nome, email:this.homeForm.value.email, rovescio:this.homeForm.value.rovescio, nazione:this.homeForm.value.nazione}).subscribe(data =>
         {
-          console.log(data)
           // Dopo aver inserito una persona richiamo il servizio GetPersone per aggiornare la vista
           this.service.aggiornaPersone('aggiorna');
           this.dialogRef.close();

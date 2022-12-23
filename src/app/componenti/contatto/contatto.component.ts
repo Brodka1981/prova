@@ -17,16 +17,18 @@ export class ContattoComponent implements OnInit {
   persona:any
   isModifica:boolean | undefined
   dialogRef: MatDialogRef<ConfirmationDialog> | undefined;
-
+  listaNazioni: string[] | undefined;
   contattoForm = new FormGroup({
     nome: new FormControl(),
     email: new FormControl(),
-    rovescio: new FormControl()
+    rovescio: new FormControl(),
+    nazione: new FormControl()
   })
 
   constructor(private route: ActivatedRoute, private servizioProva: ServizioProvaService, private router: Router, public dialog: MatDialog) { }
 
   ngOnInit(): void {
+    this.listaNazioni = this.servizioProva.getNazioni();
     this.id= this.route.snapshot.paramMap.get('id')!
     this.isModifica = !this.route.snapshot.paramMap.get('mod')? false : true;
 
@@ -39,7 +41,8 @@ export class ContattoComponent implements OnInit {
           this.contattoForm= new FormGroup({
             nome : new FormControl(this.persona.nome, Validators.required),
             email: new FormControl(this.persona.email,[Validators.required, Validators.email]),
-            rovescio: new FormControl(this.persona.rovescio)
+            rovescio: new FormControl(this.persona.rovescio),
+            nazione: new FormControl(this.persona.nazione)
           })
         }
       })
@@ -75,7 +78,7 @@ export class ContattoComponent implements OnInit {
 
   onSubmit(){
     this.servizioProva.patchPersona(this.id! ,
-      { nome: this.contattoForm.value.nome, email:this.contattoForm.value.email, rovescio:this.contattoForm.value.rovescio}).subscribe(data => {
+      { nome: this.contattoForm.value.nome, email:this.contattoForm.value.email, rovescio:this.contattoForm.value.rovescio, nazione:this.contattoForm.value.nazione }).subscribe(data => {
         // Dopo aver modificato una persona richiamo il servizio GetPersone per aggiornare la vista
         this.servizioProva.aggiornaPersone('aggiorna');
         this.router.navigate(['sidebarcontatti',this.id]);

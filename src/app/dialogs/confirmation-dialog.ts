@@ -8,4 +8,6 @@ export class ConfirmationDialog {
   constructor(public dialogRef: MatDialogRef<ConfirmationDialog>) {}
 
    confirmMessage:string | undefined;
+   titolo="Conferma";
+   tipo="conferma";
 }

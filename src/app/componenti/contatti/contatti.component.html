@@ -42,6 +42,36 @@
         <td mat-cell *matCellDef="let element"> {{element.rovescio}} </td>
       </ng-container>
 
+      <ng-container matColumnDef="rovescio-filter">
+        <th mat-header-cell *matHeaderCellDef>
+        <mat-form-field  floatLabel="never">
+          <mat-label>Tipo rovescio</mat-label>
+          <mat-select [formControl]="rovescioFilter">
+            <mat-option value="">Tutti</mat-option>
+            <mat-option value="unamano">Una mano</mat-option>
+            <mat-option value="duemani">Due mani</mat-option>
+          </mat-select>
+        </mat-form-field>
+        </th>
+      </ng-container>
+
+      <!-- Nazione Column -->
+      <ng-container matColumnDef="nazione">
+        <th mat-header-cell *matHeaderCellDef> Nazione </th>
+        <td mat-cell *matCellDef="let element"> {{element.nazione}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="nazione-filter">
+        <th mat-header-cell *matHeaderCellDef>
+        <mat-form-field  floatLabel="never">
+          <mat-label>Nazione</mat-label>
+          <mat-select [formControl]="nazioneFilter" multiple>
+            <mat-option *ngFor="let country of listaNazioni" [value]="country">{{country}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        </th>
+      </ng-container>
+
       <ng-container matColumnDef="deleteAction">
         <th mat-header-cell *matHeaderCellDef> Elimina </th>
           <td mat-cell *matCellDef="let element">

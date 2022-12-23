@@ -1,0 +1,134 @@
+<h2 mat-dialog-title>Dettagli richiesta</h2>
+<div mat-dialog-content>
+  <div class="mat-elevation-z8" style="margin-top:10px;">
+
+      <table style="width:100%;">
+        <tr>
+          <td align="left" style="padding:10px;">Canale:</td>
+          <td align="right" style="padding:10px;"><b>{{this.channel}}</b></td>
+          <td align="left" style="padding:10px;">Creata il:</td>
+          <td align="right" style="padding:10px;"><b>{{this.creationDate}}</b></td>
+          <td align="left" style="padding:10px;">Id Pratica:</td>
+          <td align="right" style="padding:10px;"><b>{{this.transactionId}}</b></td>
+          <td align="left" style="padding:10px;">Tipo Validazione:</td>
+          <td align="right" style="padding:10px;"><b>{{this.transactionType}}</b></td>
+        </tr>
+        <tr>
+          <td align="left" style="padding:10px;">Stato:</td>
+          <td align="right" style="padding:10px;"><b>{{this.transactionStatus}}</b></td>
+          <td align="left" style="padding:10px;">Operatore:</td>
+          <td align="right" style="padding:10px;"><b>{{this.operatorAccount}}</b></td>
+          <td align="left" style="padding:10px;">N. Gestioni:</td>
+          <td align="right" style="padding:10px;"><b>{{this.numberOfRequests}}</b></td>
+          <td align="left" style="padding:10px;"></td>
+          <td align="right" style="padding:10px;"></td>
+        </tr>
+        <tr>
+          <td align="left" style="padding:10px;">KO Pratiche.it:</td>
+          <td align="right" style="padding:10px;"><b>{{this.dataVerificationKO}}</b></td>
+          <td align="left" style="padding:10px;">Motivo KO:</td>
+          <td align="right" style="padding:10px;"><b>{{this.koReason}}</b></td>
+          <td align="left" style="padding:10px;"></td>
+          <td align="right" style="padding:10px;"></td>
+          <td align="left" style="padding:10px;"></td>
+          <td align="right" style="padding:10px;"></td>
+        </tr>
+        <tr>
+          <td align="left" style="padding:10px;">Upload Documentazione:</td>
+          <td align="right" style="padding:10px;"><b>ToDo</b></td>
+          <td align="left" style="padding:10px;">Esito Operatore:</td>
+          <td align="right" style="padding:10px;"><b>ToDo</b></td>
+          <td align="left" style="padding:10px;"></td>
+          <td align="right" style="padding:10px;"></td>
+          <td align="left" style="padding:10px;"></td>
+          <td align="right" style="padding:10px;"></td>
+        </tr>
+      </table>
+
+  </div>
+  <div class="mat-elevation-z8" style="margin-top:20px;margin-bottom:20px;">
+      <table style="width:100%;">
+        <tr>
+          <td align="left" style="width:20%;padding:10px;">Gestione Operatore:</td>
+          <td align="left" style="width:80%;padding:10px;"><b>{{this.gestioneOperatore}}</b></td>
+        </tr>
+      </table>
+  </div>
+
+  <div class="mat-elevation-z8" style="margin-top:20px;margin-bottom:20px;">
+    <table style="width:100%;">
+      <tr>
+        <td align="left" style="width:20%;padding:10px;">Nota:</td>
+        <td align="left" style="width:80%;padding:10px;"><b>{{this.note}}</b></td>
+      </tr>
+    </table>
+</div>
+
+<div class="mat-elevation-z8" style="margin-top:20px;margin-bottom:20px;">
+  <table style="width:100%;">
+    <tr>
+      <th>Caselle PEC (Tot. {{this.numberOfAccounts}})</th>
+      <th>TITOLARE</th>
+      <th>RICHIEDENTE</th>
+      <th>DOCUMENTI</th>
+    </tr>
+    <tr>
+      <td align="left" style="padding:10px;">
+        <div style="overflow: auto !important;max-height:150px;">
+          <ul style="list-style-type: none;">
+            <li *ngFor="let s of subjectAccounts"><a href={{s.value}} target="_blank">{{s.key}}</a></li>
+          </ul>
+        </div>
+      </td>
+      <td align="left" style="padding:10px;" valign="top">
+        <table style="width:100%;">
+          <tr>
+            <td align="left">Rag.Soc.</td>
+            <td align="right"><b>{{this.companyName}}</b></td>
+          </tr>
+          <tr>
+            <td align="left">Tipo</td>
+            <td align="right"><b>{{this.servizioProva.renderSubjectType(this.identificationSubjectType)}}</b></td>
+          </tr>
+          <tr>
+            <td align="left">C.F.</td>
+            <td align="right"><b>{{this.companyFiscalCode}}</b></td>
+          </tr>
+          <tr>
+            <td align="left">P.IVA</td>
+            <td align="right"><b>{{this.vatNumber}}</b></td>
+          </tr>
+        </table>
+      </td>
+      <td align="left" style="padding:10px;" valign="top">
+        <table style="width:100%;">
+          <tr>
+            <td align="left">Cognome</td>
+            <td align="right"><b>{{this.personSurname}}</b></td>
+          </tr>
+          <tr>
+            <td align="left">Nome</td>
+            <td align="right"><b>{{this.personName}}</b></td>
+          </tr>
+          <tr>
+            <td align="left">C.F.</td>
+            <td align="right"><b>{{this.personFiscalCode}}</b></td>
+          </tr>
+        </table>
+      </td>
+      <td align="left" style="padding:10px;width:30%;"></td>
+    </tr>
+  </table>
+</div>
+
+</div>
+
+<div mat-dialog-actions>
+  <div  style="width:100%;">
+    <button style="position: relative;float: right;" mat-button mat-dialog-close cdkFocusInitial (click)="dialogRef.close(false)">Chiudi</button>
+  </div>
+</div>
+
+
+
+

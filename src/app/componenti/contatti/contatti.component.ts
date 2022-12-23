@@ -19,25 +19,31 @@ import { FormControl } from '@angular/forms';
 export class ContattiComponent implements OnInit {
   persone: any
   persona: any
-  displayedColumns: string[] = ['nome', 'email', 'rovescio','deleteAction'];
-  displayedColumnFilters: string[] = ['nome-filter','email-filter'];
+  displayedColumns: string[] = ['nome', 'email', 'rovescio','nazione','deleteAction'];
+  displayedColumnFilters: string[] = ['nome-filter','email-filter','rovescio-filter','nazione-filter'];
   dialogRef: MatDialogRef<ConfirmationDialog> | undefined;
   dialogInserisciRef: MatDialogRef<HomeComponent> | undefined;
   dataSource = new MatTableDataSource() // MatTableDataSource supporta filtri e paginazione
+  listaNazioni: string[] | undefined;
 
   nomeFilter = new FormControl(''); // il valore del filtro nome lo prendo da qua
   emailFilter = new FormControl(''); // il valore del filtro email lo prendo da qua
+  rovescioFilter = new FormControl(''); // il valore del filtro rovescio lo prendo da qua
+  nazioneFilter = new FormControl(''); // il valore del filtro nazione lo prendo da qua
   filterValues = { //inizializzo il Json base dei filtri
     nome: '',
-    email:''
+    email:'',
+    rovescio:'',
+    nazione:''
   };
   @ViewChild(MatPaginator) paginator!: MatPaginator | null; // serve per recuperare il riferimento al paginatore
   @ViewChild(MatSort) sort!: MatSort | null; // serve per recuperare il riferimento all'ordinatore
-// Additional 'filter' column list
 
   constructor(private servizioProva: ServizioProvaService, public dialog: MatDialog, private router: Router) { }
 
   ngOnInit(): void {
+    this.listaNazioni = this.servizioProva.getNazioni();
+
     this.servizioProva.getPersone().subscribe((data: any) => {
       this.dataSource.data=Object.keys(data).map((key)=>{
         data[key]['id']=key;
@@ -58,6 +64,22 @@ export class ContattiComponent implements OnInit {
     .subscribe(
       email => {
         this.filterValues.email = email!;
+        this.dataSource.filter = JSON.stringify(this.filterValues);
+      }
+    )
+
+    this.rovescioFilter.valueChanges //quando il filtro cambia gli vado a mettere il valore
+    .subscribe(
+      rovescio => {
+        this.filterValues.rovescio = rovescio!;
+        this.dataSource.filter = JSON.stringify(this.filterValues);
+      }
+    )
+
+    this.nazioneFilter.valueChanges //quando il filtro cambia gli vado a mettere il valore
+    .subscribe(
+      nazione => {
+        this.filterValues.nazione = nazione!;
         this.dataSource.filter = JSON.stringify(this.filterValues);
       }
     )
@@ -83,9 +105,11 @@ export class ContattiComponent implements OnInit {
   }
 
   createFilter(): (data: any, filter: string) => boolean { // funzione che combina i vari filtri
-    let filterFunction = function(data: { nome: string; email: string; }, filter: string): boolean {
+    let filterFunction = function(data: { nome: string; email: string; rovescio: string; nazione:string}, filter: string): boolean {
       return data.nome.toLowerCase().indexOf(JSON.parse(filter).nome.toLowerCase()) !== -1
           && data.email.toString().toLowerCase().indexOf(JSON.parse(filter).email.toLowerCase()) !== -1
+          && data.rovescio.toString().toLowerCase().indexOf(JSON.parse(filter).rovescio.toLowerCase()) !== -1
+          && (JSON.parse(filter).nazione.length===0 || JSON.parse(filter).nazione.includes(data.nazione.toString().toLowerCase()))
     }
     return filterFunction;
   }

@@ -4,6 +4,7 @@
     <p>Giocatore: {{persona.nome}}</p>
     <p>email: {{persona.email}}</p>
     <p>rovescio: {{persona.rovescio}}</p>
+    <p>nazione: {{persona.nazione}}</p>
     <button (click)="onModificaPersona()" mat-raised-button color="primary">Modifica</button>&nbsp;&nbsp;<button (click)="onDeletePersona()" mat-raised-button color="primary">Elimina</button>
   </div>
   <ng-template #modificaContatto>
@@ -22,6 +23,12 @@
         <mat-select name="rovescio" formControlName="rovescio">
           <mat-option value="unamano">Una mano</mat-option>
           <mat-option value="duemani">Due mani</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Nazione</mat-label>
+        <mat-select name="nazione" formControlName="nazione">
+          <mat-option *ngFor="let country of listaNazioni" [value]="country">{{country}}</mat-option>
         </mat-select>
       </mat-form-field>&nbsp;&nbsp;
       <button mat-raised-button color="primary" type="submit" [disabled]="!contattoForm.valid">Salva</button>&nbsp;&nbsp;<button mat-raised-button color="accent" (click)="onAnnulla()">Annulla</button>

@@ -1,4 +1,4 @@
-<p>index works!</p>
+<p></p>
 
 <div>
   <button (click)="exportArray()" mat-raised-button color="primary">Export</button>
@@ -6,7 +6,7 @@
 <br/>
 <div style="width:100%" class="mat-elevation-z8">
   <table style="width:100%" matSort mat-table [dataSource]="dataSource">
-    <!-- Nome Column -->
+    <!-- Data Richiesta Column -->
     <ng-container matColumnDef="creationDate">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Data richiesta</th>
       <td mat-cell *matCellDef="let element">{{ this.servizioProva.renderDate(element.creationDate) }}</td>
@@ -21,7 +21,7 @@
       </th>
    </ng-container>
 
-    <!-- Email Column -->
+    <!-- KO Pratiche Column -->
     <ng-container matColumnDef="verificationKoDate">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>KO Pratiche.it</th>
       <td mat-cell *matCellDef="let element"> {{ this.servizioProva.renderDate(element.verificationKoDate) }} </td>
@@ -32,7 +32,7 @@
       </th>
    </ng-container>
 
-    <!-- Rovescio Column -->
+    <!-- Motivo KO Column -->
     <ng-container matColumnDef="motivoKo">
       <th mat-header-cell *matHeaderCellDef  mat-sort-header> Motivo KO </th>
       <td mat-cell *matCellDef="let element"> {{element.motivoKo}} </td>
@@ -49,7 +49,7 @@
       </th>
     </ng-container>
 
-    <!-- Nazione Column -->
+    <!-- ID Pratica Column -->
     <ng-container matColumnDef="transactionId">
       <th mat-header-cell *matHeaderCellDef  mat-sort-header> ID pratica </th>
       <td mat-cell *matCellDef="let element"> {{element.transactionId}} </td>

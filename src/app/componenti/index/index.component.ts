@@ -150,15 +150,20 @@ export class IndexComponent implements OnInit {
     let filterFunction = function(data: { transactionId: string; companyName: string; subjectType:string; motivoKo:string; transactionStatus:string; vatNumber:string; companyFiscalCode:string; escalation:string; operatorAccount:string }, filter: string): boolean {
 
       var dataOpAcc='';
+      var dataCompFiscalCode='';
       if(data.operatorAccount!=null)
       {
         dataOpAcc = data.operatorAccount;
+      }
+      if(data.companyFiscalCode!=null)
+      {
+        dataCompFiscalCode = data.companyFiscalCode;
       }
 
       return data.transactionId.toString().toLowerCase().indexOf(JSON.parse(filter).transactionId.toString().toLowerCase()) !== -1
           && data.companyName.toString().toLowerCase().indexOf(JSON.parse(filter).companyName.toString().toLowerCase()) !== -1
           && data.vatNumber.toString().toLowerCase().indexOf(JSON.parse(filter).vatNumber.toString().toLowerCase()) !== -1
-          && data.companyFiscalCode.toString().toLowerCase().indexOf(JSON.parse(filter).companyFiscalCode.toString().toLowerCase()) !== -1
+          && dataCompFiscalCode.toString().toLowerCase().indexOf(JSON.parse(filter).companyFiscalCode.toString().toLowerCase()) !== -1
           && dataOpAcc.toString().toLowerCase().indexOf(JSON.parse(filter).operatorAccount.toString().toLowerCase()) !== -1
           && data.motivoKo.toString().toLowerCase().indexOf(JSON.parse(filter).motivoKo.toLowerCase()) !== -1
           && data.escalation.toString().toLowerCase().indexOf(JSON.parse(filter).escalation.toLowerCase()) !== -1
@@ -167,8 +172,6 @@ export class IndexComponent implements OnInit {
     }
     return filterFunction;
   }
-
-
 
   renderEscalation(e: any) {
     return (e == 'true') ? 'SI' : '';
@@ -207,6 +210,41 @@ export class IndexComponent implements OnInit {
         }
       })
     }
+  }
+
+  refresh() {
+    this.servizioProva.getTransactionsList().subscribe((data: any) => {
+      // data.result[0].companyName = 'PippoPluto SPA'; /* Test per vedere se aggiorna veramente */
+      this.dataSource.data = data.result;
+      this.dataSource.filterPredicate = this.createFilter(); //Imposto come devono funzionare i filtri
+    })
+  }
+
+  reset() {
+    this.filterValues = { //inizializzo il Json base dei filtri
+      creationDate: '',
+      motivoKo:'',
+      transactionId:'',
+      transactionStatus:'',
+      companyName:'',
+      subjectType:'',
+      vatNumber:'',
+      companyFiscalCode:'',
+      escalation:'',
+      operatorAccount:''
+    };
+
+    this.creationDateFilter.reset('');
+    this.motivoKoFilter.reset('');
+    this.transactionIdFilter.reset('');
+    this.transactionStatusFilter.reset('');
+    this.companyNameFilter.reset('');
+    this.subjectTypeFilter.reset('');
+    this.vatNumberFilter.reset('');
+    this.companyFiscalCodeFilter.reset('');
+    this.escalationFilter.reset('');
+    this.operatorAccountFilter.reset('');
+    this.dataSource.filter = JSON.stringify(this.filterValues);
   }
 
   exportArray() {

@@ -4,4 +4,12 @@
 .mat-row:nth-child(odd){
   background-color: #eee;
 }
-
+.mat-header-cell {
+  font-size: 15px;
+}
+.mat-stroked-button {
+  color: #0d6efd;
+}
+.mat-stroked-button:not(.mat-button-disabled) {
+  border-color: #0d6efd;
+}
